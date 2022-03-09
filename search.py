@@ -16,6 +16,7 @@ import random
 import numpy as np
 import distiller
 from thinning import thinning
+import ipdb
 
 
 def random_compression_scheduler(compression_scheduler, channel_configuration):
@@ -69,6 +70,7 @@ def main(opt):
     )
 
     ###### Adaptive-BN-based Candidate Evaluation of Pruning Strategy ###
+    # thinning(net, compression_scheduler, input_tensor=dummy_input)
     try:
         thinning(net, compression_scheduler, input_tensor=dummy_input)
     except Exception as e:
@@ -81,6 +83,7 @@ def main(opt):
     print("FLOPs ratio:", ratio)
     if ratio < opt.flops_target - 0.005 or ratio > opt.flops_target + 0.005:
         # illegal pruning strategy
+        print('illegal pruning strategy')
         return
     net = net.to(device)
     net.parallel(opt.gpu_ids)

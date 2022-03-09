@@ -26,7 +26,7 @@ class ModelWrapper(nn.Module):
         elif opt.model_name == "resnet50":
             from .resnet import resnet50
 
-            self._net = resnet50(num_classes=opt.num_classes)
+            self._net = resnet50(num_classes=opt.num_classes, pretrained=True)
 
         self.optimizer = optim.SGD(
             self._net.parameters(),
